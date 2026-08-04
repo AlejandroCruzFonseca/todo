@@ -26,6 +26,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      data-google-analytics-opt-out=""
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
