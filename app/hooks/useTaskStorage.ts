@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 export interface Task {
   id: string;
@@ -55,12 +55,21 @@ const removeStoredTasks = (): boolean => {
 };
 
 export const useTaskStorage = () => {
-  const [state, setState] = useState(() => {
-    if (!isBrowser()) return { tasks: [] as Task[], isReady: false };
-    const stored = readStoredTasks();
-    return { tasks: stored ?? [], isReady: true };
+  const [state, setState] = useState<{ tasks: Task[]; isReady: boolean }>({
+    tasks: [],
+    isReady: false,
   });
   const { tasks, isReady } = state;
+
+  useEffect(() => {
+    if (!isBrowser()) {
+      setState({ tasks: [], isReady: false });
+      return;
+    }
+
+    const stored = readStoredTasks();
+    setState({ tasks: stored ?? [], isReady: true });
+  }, []);
 
   const saveTasks = useCallback((nextTasks: Task[]) => {
     const success = writeStoredTasks(nextTasks);
