@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Box, IconButton, Paper, Stack, TextField } from "@mui/material";
+import { Box, IconButton, Stack, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import type { Task } from "../../hooks/useTaskStorage";
 
